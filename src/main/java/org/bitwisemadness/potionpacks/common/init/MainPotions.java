@@ -2,7 +2,7 @@ package org.bitwisemadness.potionpacks.common.init;
 
 import org.bitwisemadness.potionpacks.Env;
 import org.bitwisemadness.potionpacks.LogUtil;
-import org.bitwisemadness.potionpacks.Reference;
+import org.bitwisemadness.potionpacks.PotionPacksMod;
 import org.bitwisemadness.potionpacks.common.packs.PotionPackManager;
 import org.bitwisemadness.potionpacks.common.packs.PotionPackManager.BrewingRecipeDefinition;
 import org.bitwisemadness.potionpacks.common.packs.PotionPackManager.ResolvedPotionFamily;
@@ -28,7 +28,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public final class MainPotions {
-	public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, Reference.MOD_ID);
+	public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTIONS, PotionPacksMod.MOD_ID);
 	private static final Map<String, RegistryObject<Potion>> POTION_VARIANTS = new LinkedHashMap<>();
 	private static boolean variantsRegistered = false;
 
@@ -65,7 +65,7 @@ public final class MainPotions {
 			LogUtil.warn(Env.COMMON, "Skipping potion family '{}' because it has no resolvable effect reference", family.getDefinition().id);
 			return false;
 		}
-		if (!"minecraft".equals(namespace) && !Reference.MOD_ID.equals(namespace) && !ModList.get().isLoaded(namespace)) {
+		if (!"minecraft".equals(namespace) && !PotionPacksMod.MOD_ID.equals(namespace) && !ModList.get().isLoaded(namespace)) {
 			LogUtil.warn(Env.COMMON, "Skipping potion family '{}' because effect namespace '{}' is not loaded", family.getDefinition().id, namespace);
 			return false;
 		}

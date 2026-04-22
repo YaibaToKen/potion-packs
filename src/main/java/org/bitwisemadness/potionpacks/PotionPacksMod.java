@@ -6,8 +6,10 @@ import org.bitwisemadness.potionpacks.common.packs.PotionPackManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-@Mod(Reference.MOD_ID)
+@Mod(PotionPacksMod.MOD_ID)
 public class PotionPacksMod {
+	public static final String MOD_ID = "potionpacks";
+
 	public PotionPacksMod() {
 		LogUtil.info(Env.COMMON, "Initializing Potion Packs...");
 		PotionPackManager.initialize();

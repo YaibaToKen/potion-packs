@@ -1,6 +1,6 @@
 package org.bitwisemadness.potionpacks.client.resources;
 
-import org.bitwisemadness.potionpacks.Reference;
+import org.bitwisemadness.potionpacks.PotionPacksMod;
 import org.bitwisemadness.potionpacks.common.packs.PotionPackManager;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -44,7 +44,7 @@ public class PotionLangPackResources implements PackResources {
 	@Nullable
 	@Override
 	public IoSupplier<InputStream> getResource(PackType type, ResourceLocation location) {
-		if (type == PackType.CLIENT_RESOURCES && location.getNamespace().equals(Reference.MOD_ID) && location.getPath().equals("lang/en_us.json")) {
+		if (type == PackType.CLIENT_RESOURCES && location.getNamespace().equals(PotionPacksMod.MOD_ID) && location.getPath().equals("lang/en_us.json")) {
 			return () -> new ByteArrayInputStream(enUsBytes);
 		}
 		return null;
@@ -52,14 +52,14 @@ public class PotionLangPackResources implements PackResources {
 
 	@Override
 	public void listResources(PackType type, String namespace, String path, ResourceOutput output) {
-		if (type == PackType.CLIENT_RESOURCES && Reference.MOD_ID.equals(namespace) && (path.isEmpty() || "lang".equals(path))) {
-			output.accept(new ResourceLocation(Reference.MOD_ID, "lang/en_us.json"), () -> new ByteArrayInputStream(enUsBytes));
+		if (type == PackType.CLIENT_RESOURCES && PotionPacksMod.MOD_ID.equals(namespace) && (path.isEmpty() || "lang".equals(path))) {
+			output.accept(new ResourceLocation(PotionPacksMod.MOD_ID, "lang/en_us.json"), () -> new ByteArrayInputStream(enUsBytes));
 		}
 	}
 
 	@Override
 	public Set<String> getNamespaces(PackType type) {
-		return type == PackType.CLIENT_RESOURCES ? Set.of(Reference.MOD_ID) : Collections.emptySet();
+		return type == PackType.CLIENT_RESOURCES ? Set.of(PotionPacksMod.MOD_ID) : Collections.emptySet();
 	}
 
 	@Nullable

@@ -2,7 +2,7 @@ package org.bitwisemadness.potionpacks.common.packs;
 
 import org.bitwisemadness.potionpacks.Env;
 import org.bitwisemadness.potionpacks.LogUtil;
-import org.bitwisemadness.potionpacks.Reference;
+import org.bitwisemadness.potionpacks.PotionPacksMod;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
@@ -361,7 +361,7 @@ public final class PotionPackManager {
 			return false;
 		}
 		String namespace = effectId.getNamespace();
-		return "minecraft".equals(namespace) || Reference.MOD_ID.equals(namespace) || ModList.get().isLoaded(namespace);
+		return "minecraft".equals(namespace) || PotionPacksMod.MOD_ID.equals(namespace) || ModList.get().isLoaded(namespace);
 	}
 
 

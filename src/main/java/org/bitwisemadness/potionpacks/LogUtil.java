@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public final class LogUtil {
-	private static final Logger LOGGER = LogManager.getLogger(Reference.MOD_ID);
+	private static final Logger LOGGER = LogManager.getLogger(PotionPacksMod.MOD_ID);
 
 	private LogUtil() {}
 
