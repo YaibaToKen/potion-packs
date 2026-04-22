@@ -6,7 +6,7 @@ license="All Rights Reserved"
 modId="potionpacks"
 version="1.0.0"
 displayName="Potion Packs"
-description="Registers potions for existing effects from external folder or zip packs. Packs are loaded from the instance root potionpacks folder and read definitions from /data/dragonminez/potions/*.json."
+description="Registers potions for existing effects from external folder or zip packs. Packs are loaded from the instance root potionpacks folder and read definitions from /data/potionpacks/potions/*.json."
 
 [[dependencies.potionpacks]]
 modId="forge"

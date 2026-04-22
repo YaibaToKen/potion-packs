@@ -33,7 +33,7 @@ import java.util.zip.ZipFile;
 
 public final class PotionPackManager {
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().setLenient().create();
-	private static final String PACK_RELATIVE_ROOT = "data/dragonminez/potions/";
+	private static final String PACK_RELATIVE_ROOT = "data/potionpacks/potions/";
 	private static final Path INSTANCE_PACK_DIR = FMLPaths.GAMEDIR.get().resolve("potionpacks");
 
 	@Getter
@@ -331,14 +331,9 @@ public final class PotionPackManager {
 
 	private static Map<String, List<String>> createEffectTagAliases() {
 		Map<String, List<String>> aliases = new HashMap<>();
-		aliases.put("dragonminez:ki_regen_family", List.of("dragonminez:ki_regen"));
-		aliases.put("dragonminez:stamina_regen_family", List.of("dragonminez:stamina_regen"));
-		aliases.put("dragonminez:tp_gain_family", List.of("dragonminez:tp_gain"));
-		aliases.put("dragonminez:mastery_gain_family", List.of("dragonminez:mastery_gain"));
 		aliases.put("minecraft:speed_family", List.of("minecraft:speed"));
 		aliases.put("minecraft:regeneration_family", List.of("minecraft:regeneration"));
 		aliases.put("minecraft:jump_family", List.of("minecraft:jump_boost"));
-		aliases.put("modded:mana_regen_family", List.of("ars_nouveau:mana_regen", "minecraft:regeneration"));
 		return aliases;
 	}
 
