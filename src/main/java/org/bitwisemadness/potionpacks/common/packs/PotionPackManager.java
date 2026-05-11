@@ -33,7 +33,7 @@ import java.util.zip.ZipFile;
 
 public final class PotionPackManager {
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().setLenient().create();
-	private static final String PACK_RELATIVE_ROOT = "data/potionpacks/potions/";
+	private static final String PACK_RELATIVE_ROOT = "data/potionpacks/potionpacks/";
 	private static final Path INSTANCE_PACK_DIR = FMLPaths.GAMEDIR.get().resolve("potionpacks");
 
 	@Getter
@@ -56,7 +56,7 @@ public final class PotionPackManager {
 		resolveFamilies(mergedFamilies);
 		initialized = true;
 
-		LogUtil.info(Env.COMMON, "Loaded {} potion family definitions", resolvedFamilies.size());
+		LogUtil.info(Env.COMMON, "Prepared {} potion family definitions for deferred registration", resolvedFamilies.size());
 	}
 
 	public static boolean hasLoadedPotionFamilies() {
@@ -201,10 +201,10 @@ public final class PotionPackManager {
 						LogUtil.warn(Env.COMMON, "Potion family '{}' references missing vanilla effect '{}', skipping", family.id, effectId);
 						continue;
 					}
-					LogUtil.info(Env.COMMON, "Potion family '{}' queued unresolved effect '{}' until registry access", family.id, effectId);
+					LogUtil.info(Env.COMMON, "Potion family '{}' queued effect '{}' until registry access", family.id, effectId);
 				}
 			} else {
-				LogUtil.info(Env.COMMON, "Potion family '{}' queued unresolved effect tag '{}' until registry access", family.id, effectReference);
+				LogUtil.info(Env.COMMON, "Potion family '{}' queued effect tag '{}' until registry access", family.id, effectReference);
 			}
 
 			Map<String, TierDefinition> enabledTiers = new LinkedHashMap<>();
@@ -236,6 +236,34 @@ public final class PotionPackManager {
 			}
 
 			List<ResolvedPotionVariant> resolvedVariants = new ArrayList<>();
+
+			if (family.variants == null || family.variants.isEmpty()) {
+				LogUtil.info(Env.COMMON,
+					"Potion family '{}' does not define explicit variants, generating all tier-duration combinations",
+					family.id);
+
+				for (TierDefinition tier : enabledTiers.values()) {
+					for (DurationDefinition duration : enabledDurations.values()) {
+						String registryName = sanitizeRegistryPath(family.id + "_" + tier.id + "_" + duration.id);
+
+						VariantDefinition generatedVariant = new VariantDefinition();
+						generatedVariant.tier = tier.id;
+						generatedVariant.duration = duration.id;
+						generatedVariant.enabled = true;
+
+						resolvedVariants.add(
+							new ResolvedPotionVariant(
+								family.id,
+								registryName,
+								tier,
+								duration,
+								generatedVariant
+							)
+						);
+					}
+				}
+			}
+
 			for (VariantDefinition variant : family.variants) {
 				if (variant == null || variant.tier == null || variant.duration == null) {
 					continue;
@@ -255,6 +283,9 @@ public final class PotionPackManager {
 			}
 
 			if (resolvedVariants.isEmpty()) {
+				LogUtil.warn(Env.COMMON,
+					"Potion family '{}' produced zero enabled variants after deferred preparation",
+					family.id);
 				continue;
 			}
 

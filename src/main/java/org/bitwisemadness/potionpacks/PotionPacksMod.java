@@ -12,7 +12,9 @@ public class PotionPacksMod {
 
 	public PotionPacksMod() {
 		LogUtil.info(Env.COMMON, "Initializing Potion Packs...");
+		LogUtil.info(Env.COMMON, "Starting potion pack discovery and parsing");
 		PotionPackManager.initialize();
+		LogUtil.info(Env.COMMON, "Potion pack discovery complete");
 		var bus = FMLJavaModLoadingContext.get().getModEventBus();
 		MainPotions.register(bus);
 		bus.addListener(ModCommonEvents::commonSetup);

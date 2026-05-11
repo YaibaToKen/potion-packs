@@ -42,8 +42,10 @@ public final class MainPotions {
 	private static void ensureVariantsRegistered() {
 		if (variantsRegistered) return;
 		variantsRegistered = true;
+		LogUtil.info(Env.COMMON, "Beginning deferred potion variant registration for {} families", PotionPackManager.getResolvedFamilies().size());
 		for (ResolvedPotionFamily family : PotionPackManager.getResolvedFamilies().values()) {
 			if (!shouldRegisterFamily(family)) continue;
+			LogUtil.info(Env.COMMON, "Registering potion family '{}'", family.getDefinition().id);
 			for (PotionPackManager.ResolvedPotionVariant variant : family.getVariants()) {
 				String variantKey = variant.variantKey();
 				POTION_VARIANTS.put(variantKey, POTIONS.register(variant.getRegistryName(), () -> {
@@ -69,8 +71,8 @@ public final class MainPotions {
 			LogUtil.warn(Env.COMMON, "Skipping potion family '{}' because effect namespace '{}' is not loaded", family.getDefinition().id, namespace);
 			return false;
 		}
-		if (family.resolveMobEffect() == null && "minecraft".equals(namespace)) {
-			LogUtil.warn(Env.COMMON, "Skipping potion family '{}' because vanilla effect '{}' does not exist", family.getDefinition().id, family.getEffectReference());
+		if (family.resolveMobEffect() == null) {
+			LogUtil.warn(Env.COMMON, "Skipping potion family '{}' because effect '{}' could not be resolved during deferred registry access", family.getDefinition().id, family.getEffectReference());
 			return false;
 		}
 		return true;
@@ -81,8 +83,10 @@ public final class MainPotions {
 	}
 
 	public static void registerBrewingRecipes() {
+		LogUtil.info(Env.COMMON, "Beginning deferred potion variant registration for {} families", PotionPackManager.getResolvedFamilies().size());
 		for (ResolvedPotionFamily family : PotionPackManager.getResolvedFamilies().values()) {
 			if (!shouldRegisterFamily(family)) continue;
+			LogUtil.info(Env.COMMON, "Registering potion family '{}'", family.getDefinition().id);
 			for (BrewingRecipeDefinition recipe : family.getDefinition().brewing) {
 				if (recipe == null || Boolean.FALSE.equals(recipe.enabled) || recipe.ingredient == null) continue;
 				Potion inputPotion = resolvePotionReference(family, recipe.inputPotion, recipe.inputTier, recipe.inputDuration);

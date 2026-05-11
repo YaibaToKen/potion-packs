@@ -1,0 +1,9 @@
+{
+  "id": "speed",
+  "tiers": [
+    {
+      "id": "100",
+      "enabled": false
+    }
+  ]
+}

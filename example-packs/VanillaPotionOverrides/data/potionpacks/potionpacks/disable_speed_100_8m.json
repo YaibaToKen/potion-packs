@@ -1,0 +1,10 @@
+{
+  "id": "speed",
+  "variants": [
+    {
+      "tier": "100",
+      "duration": "8m",
+      "enabled": false
+    }
+  ]
+}

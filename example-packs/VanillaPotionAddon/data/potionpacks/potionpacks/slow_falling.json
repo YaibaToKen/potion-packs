@@ -1,0 +1,40 @@
+{
+  "id": "slow_falling",
+  "display_name": "Slow Falling",
+  "effect": "minecraft:slow_falling",
+  "enabled": true,
+  "tiers": [
+    {
+      "id": "25",
+      "amplifier": 0
+    },
+    {
+      "id": "50",
+      "amplifier": 1
+    },
+    {
+      "id": "75",
+      "amplifier": 2
+    },
+    {
+      "id": "100",
+      "amplifier": 3
+    }
+  ],
+  "durations": [
+    {
+      "id": "3m",
+      "ticks": 3600
+    },
+    {
+      "id": "8m",
+      "ticks": 9600
+    }
+  ],
+  "brewing": [
+    {
+      "base_potion": "minecraft:awkward",
+      "ingredient": "minecraft:phantom_membrane"
+    }
+  ]
+}

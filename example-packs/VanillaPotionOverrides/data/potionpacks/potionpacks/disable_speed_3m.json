@@ -1,0 +1,9 @@
+{
+  "id": "speed",
+  "durations": [
+    {
+      "id": "3m",
+      "enabled": false
+    }
+  ]
+}
